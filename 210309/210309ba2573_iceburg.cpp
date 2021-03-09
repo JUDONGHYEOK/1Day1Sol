@@ -12,8 +12,8 @@ bool isDivided(vector<int>land[],int row,int column){
         on[i].resize(row);
     }
     
-    for(int i=0;i<column;i++){
-        for(int j=0;j<row;j++){
+    for(int i=1;i<column-1;i++){
+        for(int j=1;j<row-1;j++){
             if(land[i][j]!=0){
                 on[i][j]=true;
                 x=i;
@@ -28,25 +28,25 @@ bool isDivided(vector<int>land[],int row,int column){
         int a=q.front().first;
         int b=q.front().second;
         q.pop();
-        if(a>=1&&on[a-1][b]){
+        if(on[a-1][b]){
             q.push({a-1,b});
             on[a-1][b]=false;
         }
-        if(b>=1&&on[a][b-1]){
+        if(on[a][b-1]){
             q.push({a,b-1});
             on[a][b-1]=false;
         }
-        if(a<=row+1&&on[a+1][b]){
+        if(on[a+1][b]){
             q.push({a+1,b});
             on[a+1][b]=false;
         }
-        if(b<=column+1&&on[a][b+1]){
+        if(on[a][b+1]){
             q.push({a,b+1});
             on[a][b+1]=false;
         }
     }
-    for(x=0;x<column;x++){
-        for(y=0;y<row;y++){
+    for(x=1;x<column-1;x++){
+        for(y=1;y<row-1;y++){
             if(on[x][y]!=0){
                 return false;
             }
@@ -58,8 +58,8 @@ bool isDivided(vector<int>land[],int row,int column){
 
 bool isZero(vector<int>land[],int row,int column){
 
-    for(int i=1;i<column;i++){
-        for(int j=1;j<row;j++){
+    for(int i=1;i<column-1;i++){
+        for(int j=1;j<row-1;j++){
             if(land[i][j]!=0)
                 return false;
         }
@@ -97,16 +97,16 @@ int main(){
         for(int i=1;i<column-1;i++){
             for(int j=1;j<row-1;j++){
                 int minus=0;
-                if(i>=1&&!isOn[i-1][j]){
+                if(!isOn[i-1][j]){
                     minus++;
                 }
-                if(j>=1&&!isOn[i][j-1]){
+                if(!isOn[i][j-1]){
                     minus++;
                 }
-                if(i<=row+1&&!isOn[i+1][j]){
+                if(!isOn[i+1][j]){
                     minus++;
                 }
-                if(j<=column+1&&!isOn[i][j+1]){
+                if(!isOn[i][j+1]){
                     minus++;
                 }
                 if(graph[i][j]>minus){
@@ -116,8 +116,8 @@ int main(){
                 }
             }
         }
-        for(int i=0;i<column;i++){
-            for(int j=0;j<row;j++){
+        for(int i=1;i<column-1;i++){
+            for(int j=1;j<row-1;j++){
                 if(graph[i][j]==0){
                     isOn[i][j]=false;
                 }
