@@ -1,43 +1,30 @@
 #include<iostream>
 #include<vector>
+#include<algorithm>
 
 using namespace std;
 
 int main(){
 
     int number;
-    vector<int> wine;
     cin>>number;
-    vector<vector<int>> caseBy(3,vector<int>(number,-1));
-
+    vector<int> wine(number,0);
+    vector<int> dp(number,0);
     for(int i=0;i<number;i++){
         int amountOfWine;
         cin>>amountOfWine;
-        wine.push_back(amountOfWine);
-    }
-    if(number>2){
-        caseBy[0][0]=wine[0];
-        caseBy[1][0]=wine[0];
-        caseBy[1][1]=wine[1];
-        caseBy[2][1]=wine[1];
-        caseBy[0][2]=wine[2];
-        caseBy[2][2]=wine[2];
-        for(int i=3;i<number;i++){
-            for(int j=0;j<3;j++){
-                if(caseBy[j][i-2]!=-1&&caseBy[j][i-2]);
-            }
-        }
-
-    }else{
-        int sum=0;
-        for(int i=0;i<number;i++){
-            sum+=wine[i];
-        }
-        cout<<sum;
+        wine[i]=amountOfWine;
     }
 
-
-
-
+    dp[0]=wine[0];
+    dp[1]=wine[0]+wine[1];
+    dp[2]=max(dp[0]+wine[2],dp[1]);
+    dp[2]=max(dp[2],wine[1]+wine[2]);
+    for(int i=3;i<number;i++){
+        dp[i]=max(dp[i-3]+wine[i-1],dp[i-2])+wine[i];
+        dp[i]=max(dp[i],dp[i-1]);
+    }
+    
+    cout<<dp[number-1];
     return 0;
 }
