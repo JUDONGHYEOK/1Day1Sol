@@ -23,10 +23,7 @@ int main(){
             }
         }
         dp[i]=check+1;
-        for(int k=0;k<i+1;k++){
-            cout<<dp[k]<<" ";
-        }
-        cout<<endl;
+
         answer=max(answer,dp[i]);
     }
     cout<<answer;
